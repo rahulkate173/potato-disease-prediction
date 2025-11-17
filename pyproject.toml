@@ -1,0 +1,13 @@
+[project]
+name = "disease-prediction"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.121.2",
+    "matplotlib>=3.10.7",
+    "scikit-learn>=1.7.2",
+    "tensorflow>=2.20.0",
+    "uvicorn>=0.38.0",
+]
