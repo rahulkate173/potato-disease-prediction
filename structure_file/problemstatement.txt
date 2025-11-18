@@ -1,0 +1,2 @@
+This project is for the farmer targeted who are growing the potato plants by uploading the plant leaf image they can get the confidence 
+and the stage at which their leaf that can tell them either to use medicine on the plants
