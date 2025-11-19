@@ -1,0 +1,34 @@
+*   [33m44bde50[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdependencies-update[m[33m)[m change in graph
+[31m|[m[32m\[m  
+[31m|[m [32m|[m * [33m52b3ddf[m[33m ([m[1;31morigin/main[m[33m)[m Merge pull request #6 from rahulkate173/dependencies-update
+[31m|[m [32m|[m[32m/[m[34m|[m 
+[31m|[m [32m|[m * [33m914b4bf[m Merge branch 'main' into dependencies-update
+[31m|[m [32m|[m[31m/[m[32m|[m 
+[31m|[m[31m/[m[32m|[m[32m/[m  
+[31m|[m *   [33md9e1f69[m Merge pull request #4 from rahulkate173/dependcies-update
+[31m|[m [1;31m|[m[1;32m\[m  
+[31m|[m [1;31m|[m * [33mfcee2e0[m[33m ([m[1;31morigin/dependcies-update[m[33m, [m[1;32mdependcies-update[m[33m)[m Dependcies update
+[31m|[m * [1;32m|[m   [33ma4bb07d[m Merge pull request #3 from rahulkate173/model-update
+[31m|[m [1;33m|[m[1;34m\[m [1;32m\[m  
+[31m|[m [1;33m|[m * [1;32m|[m [33m80d5dcc[m[33m ([m[1;31morigin/model-update[m[33m, [m[1;32mmodel-update[m[33m)[m version1 model committed
+[31m|[m * [1;34m|[m [1;32m|[m [33m8efc6d7[m Merge pull request #2 from rahulkate173/notebook-update
+[31m|[m [1;35m|[m[1;34m\[m[1;34m|[m [1;32m|[m 
+[31m|[m [1;35m|[m * [1;32m|[m [33m2b24cae[m[33m ([m[1;31morigin/notebook-update[m[33m, [m[1;32mnotebook-update[m[33m)[m notebook added
+[31m|[m [1;35m|[m [1;32m|[m[1;32m/[m  
+[31m|[m * [1;32m|[m   [33mb403163[m Merge pull request #1 from rahulkate173/structure_update
+[31m|[m [1;32m|[m[32m\[m [1;32m\[m  
+[31m|[m [1;32m|[m [32m|[m[1;32m/[m  
+[31m|[m [1;32m|[m[1;32m/[m[32m|[m   
+[31m|[m [1;32m|[m * [33ma9a0da0[m[33m ([m[1;31morigin/structure_update[m[33m, [m[1;32mstructure_update[m[33m)[m Structure file committed
+[31m|[m [1;32m|[m[1;32m/[m  
+[31m|[m [1;32m|[m * [33m1aa1559[m[33m ([m[1;32mmain[m[33m)[m feat: added untracked model and structure file
+[31m|[m [1;32m|[m[1;32m/[m  
+[31m|[m [1;32m|[m * [33mdaf4a3e[m[33m ([m[1;35mrefs/stash[m[33m)[m WIP on dependencies-update: 6212ebb 12:42 change in dependencies
+[31m|[m [1;32m|[m[31m/[m[35m|[m 
+[31m|[m[31m/[m[1;32m|[m [35m|[m 
+[31m|[m [1;32m|[m * [33mf907347[m index on dependencies-update: 6212ebb 12:42 change in dependencies
+[31m|[m [1;32m|[m[31m/[m  
+[31m|[m[31m/[m[1;32m|[m   
+* [1;32m|[m [33m6212ebb[m[33m ([m[1;31morigin/dependencies-update[m[33m)[m 12:42 change in dependencies
+[1;32m|[m[1;32m/[m  
+* [33maa00b42[m initial structure
