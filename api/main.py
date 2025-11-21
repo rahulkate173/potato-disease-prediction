@@ -3,30 +3,46 @@ import uvicorn
 import numpy as np
 from io import BytesIO
 from PIL import Image
+import requests
 import tensorflow as tf
 app = FastAPI()
-MODEL = tf.keras.layers.TFSMLayer(r"D:/OneDrive/Desktop/disease-prediction/models/version_1", call_endpoint='serving_default')
+# TF_SERVING_URL = r"http://localhost:8501/v1/models/disease_model:predict" -> worong 
+TF_SERVING_URL = r"http://localhost:8051/v1/models/disease_models:predict"
+
+
+#MODEL = tf.keras.layers.TFSMLayer(r"D:/OneDrive/Desktop/disease-prediction/models/1", call_endpoint='serving_default')
 CLASS_NAMES = ['Early Bright','Late Bright','Healthy']
 @app.get('/ping')
 async def ping():
     return "hello i am alive"
 
 def read_file_as_image(bytes) -> np.ndarray:
-    array = np.array(Image.open(BytesIO(bytes)))
-    return array.astype('float')
+    image = Image.open(BytesIO(bytes)).convert("RGB")
+    # image = image.resize((224, 224))           # ⬅ match your model input size
+    image = np.array(image).astype(np.float32)
+    # image = image / 255.0                      # ⬅ normalize
+    return image.astype('float64')
+
 @app.post('/predict')
 async def predict(
     file : UploadFile = File(...)
 ):
     image = read_file_as_image(await file.read())
     image_batch = np.expand_dims(image,axis=0).astype(np.float32)
-    outputs = MODEL(image_batch)
-    logits = outputs['output_0']          # 1×3 tensor
-    logits_np = logits.numpy()            # Convert to NumPy
+    payload = {"instances": image_batch.tolist()}
 
-    class_id = int(np.argmax(logits_np[0]))
+    response = requests.post(TF_SERVING_URL, json=payload)
+
+    if response.status_code != 200:
+
+        return {"error": "TF Serving Error", "details": response.text}
+
+    prediction = response.json()["predictions"][0]
+    # outputs = MODEL(image_batch)
+    # scores = outputs["output_0"].numpy()[0]
+    class_id = int(np.argmax(prediction))
     label = CLASS_NAMES[class_id]
-    confidence = np.round(float(np.max(logits_np[0])*100),2)
+    confidence = float(np.max(prediction) * 100)
     return {
         "class_name":label,
         "confidence": confidence
@@ -34,3 +50,8 @@ async def predict(
 
 if __name__ == "__main__":
     uvicorn.run(app,host='localhost',port=8000)
+
+# docker pull tensorflow/serving
+## docker run -t --rm -p 8051:8051 -v D:/OneDrive/Desktop/disease-prediction:/disease-prediction tensorflow/serving --rest_api_port=8051 --model_config_file=/disease-prediction/model_config.config
+
+#
