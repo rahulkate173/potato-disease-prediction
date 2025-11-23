@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h2 class="title">Plant Stage Prediction</h2>
+
+    <div class="result-layout">
+
+        <!-- Left: Uploaded Image -->
+        <div class="image-box">
+            <img src="{{ image_url }}" alt="Uploaded Image" class="preview-img">
+        </div>
+
+        <!-- Right: Prediction Info -->
+        <div class="prediction-box">
+            <p><strong>1. Image Class:</strong> {{ pred_class }}</p>
+            <p><strong>2. Confidence:</strong> {{ confidence }}%</p>
+        </div>
+    </div>
+
+    <!-- New Upload Button -->
+    <div class="btn-container">
+        <a href="/" class="btn">New Upload</a>
+    </div>
+
+</div>
+
+</body>
+</html>
