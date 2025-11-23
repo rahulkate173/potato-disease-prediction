@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Plant Stage Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1 class="title">Plant Stage Prediction</h1>
+
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+
+        <div class="left-panel">
+            <label class="label">Upload File:</label>
+            <input type="file" name="file" class="file-input" onchange="previewImage(event)">
+            <button type="submit" class="btn">Predict</button>
+        </div>
+
+        <div class="right-panel">
+            <div class="image-box">
+                <img id="preview"
+                     src="{{ url_for('static', filename='images/sample.jpg') }}"
+                     alt="Image Preview">
+            </div>
+            
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+function previewImage(event) {
+    const img = document.getElementById('preview');
+    img.src = URL.createObjectURL(event.target.files[0]);
+}
+</script>
+
+</body>
+</html>
