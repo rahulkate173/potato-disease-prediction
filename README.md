@@ -1,77 +1,68 @@
 # 🥔 Potato Disease Prediction
 
-A deep learning-based web application that predicts potato plant diseases using image classification.  The system can identify whether a potato plant is **Healthy**, has **Early Blight**, or **Late Blight**. 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Railway-green? style=for-the-badge&logo=railway)](https://flask-frontend-production-cd56.up.railway.app/)
+[![Python](https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python)](https://python.org)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-Serving-orange?style=for-the-badge&logo=tensorflow)](https://www.tensorflow.org/tfx/guide/serving)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-teal?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![Flask](https://img.shields.io/badge/Flask-3.0+-black?style=for-the-badge&logo=flask)](https://flask.palletsprojects.com/)
 
-## 📋 Table of Contents
+A deep learning-powered web application that detects diseases in potato leaves.  Upload an image of a potato leaf and get instant predictions for **Early Blight**, **Late Blight**, or **Healthy** status. 
 
-- [Overview](#overview)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Endpoints](#api-endpoints)
-- [Model Information](#model-information)
-- [Contributing](#contributing)
-- [License](#license)
+🔗 **Live Demo:** [https://flask-frontend-production-cd56.up.railway.app/](https://flask-frontend-production-cd56.up.railway.app/)
 
-## 🔍 Overview
+---
 
-This project uses a trained TensorFlow model to classify potato leaf images into three categories:
-- **Early Blight** - A fungal disease caused by *Alternaria solani*
-- **Late Blight** - A disease caused by *Phytophthora infestans*
-- **Healthy** - No disease detected
+## 📸 Screenshots
 
-The application consists of a Flask frontend for user interaction and a FastAPI backend that communicates with TensorFlow Serving for model inference. 
+### Home Page
+![Home Page](https://via.placeholder.com/800x400? text=Upload+Potato+Leaf+Image)
+
+### Prediction Result
+![Result Page](https://via.placeholder.com/800x400?text=Disease+Prediction+Result)
+
+---
 
 ## ✨ Features
 
-- 📷 Upload potato leaf images for disease prediction
-- 🔮 Real-time disease classification
-- 📊 Confidence score for predictions
-- 🎨 Clean and intuitive user interface
-- 🚀 Fast inference using TensorFlow Serving
+- 🔍 **AI-Powered Detection** - Uses deep learning model trained on potato leaf images
+- 🎯 **High Accuracy** - Reliable predictions with confidence scores
+- 📤 **Drag & Drop Upload** - Easy image upload with preview
+- 📱 **Responsive Design** - Works on desktop and mobile devices
+- ⚡ **Fast Processing** - Get results in seconds
+- 🎨 **Modern UI** - Clean and intuitive user interface
 
-## 🛠 Tech Stack
+---
 
-- **Frontend**: Flask, HTML, CSS
-- **Backend API**: FastAPI, Uvicorn
-- **Machine Learning**: TensorFlow, TensorFlow Serving
-- **Data Processing**: NumPy, Pandas, Pillow
-- **Package Manager**: UV
-- **Python**:  3.12+
-
-## 📁 Project Structure
+## 🏗️ Architecture
 
 ```
-potato-disease-prediction/
-├── api/
-│   └── main.py              # FastAPI backend for predictions
-├── models/                   # Trained TensorFlow models
-├── notebooks/                # Jupyter notebooks for training
-├── PlantVillage/            # Dataset directory
-├── static/
-│   ├── css/                 # Stylesheets
-│   ├── images/              # Static images
-│   └── uploads/             # Uploaded images storage
-├── templates/
-│   ├── index.html           # Upload page
-│   └── result.html          # Prediction results page
-├── app.py                   # Flask web application
-├── model. config             # TensorFlow Serving configuration
-├── pyproject.toml           # Project dependencies
-└── README.md
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│   Flask        │     │    FastAPI      │     │  TensorFlow     │
+│   Frontend     │────▶│    Backend      │────▶│   Serving       │
+│   (Port 8080)  │     │   (Port 8000)   │     │  (Port 8501)    │
+└─────────────────┘     └─────────────────┘     └─────────────────┘
+       │                       │                       │
+       └───────────────────────┴───────────────────────┘
+                    Railway Private Network
 ```
 
-## 🚀 Installation
+| Service | Technology | Purpose |
+|---------|------------|---------|
+| **Frontend** | Flask + Jinja2 | Web interface for users |
+| **API** | FastAPI | Image processing & API endpoints |
+| **ML Model** | TensorFlow Serving | Deep learning inference |
+
+---
+
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- Python 3.12 or higher
+- Python 3.12+
 - Docker (for TensorFlow Serving)
-- UV package manager (recommended)
+- Git
 
-### Setup
+### Local Development
 
 1. **Clone the repository**
    ```bash
@@ -79,77 +70,188 @@ potato-disease-prediction/
    cd potato-disease-prediction
    ```
 
-2. **Install dependencies using UV**
+2. **Install dependencies**
    ```bash
+   pip install uv
    uv sync
    ```
 
-   Or using pip:
+3. **Start TensorFlow Serving (Docker)**
    ```bash
-   pip install -r requirements.txt
+   docker run -p 8501:8501 \
+     --mount type=bind,source=$(pwd)/models,target=/models \
+     -e MODEL_NAME=disease_models \
+     tensorflow/serving
    ```
 
-3. **Start TensorFlow Serving with Docker**
+4. **Start FastAPI backend**
    ```bash
-   docker pull tensorflow/serving
-   docker run -t --rm -p 8051:8051 \
-     -v /path/to/potato-disease-prediction:/disease-prediction \
-     tensorflow/serving \
-     --rest_api_port=8051 \
-     --model_config_file=/disease-prediction/model. config
+   uv run uvicorn api. main:app --host 0.0.0.0 --port 8000
    ```
 
-## 💻 Usage
-
-1. **Start the FastAPI backend** (handles model predictions)
+5. **Start Flask frontend**
    ```bash
-   cd api
-   python main.py
+   uv run python app.py
    ```
-   The API will be available at `http://localhost:8000`
 
-2. **Start the Flask frontend** (in a new terminal)
-   ```bash
-   python app.py
+6. **Open your browser**
    ```
-   The web application will be available at `http://localhost:8080`
+   http://localhost:8080
+   ```
 
-3. **Make predictions**
-   - Open your browser and navigate to `http://localhost:8080`
-   - Upload an image of a potato leaf
-   - Click "Predict" to get the disease classification
+---
 
-## 🔌 API Endpoints
+## 🐳 Docker Deployment
 
-### FastAPI Backend (`http://localhost:8000`)
+### Build and Run with Docker Compose
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/ping` | GET | Health check endpoint |
-| `/predict` | POST | Upload image and get prediction |
+```yaml
+# docker-compose.yml
+version: '3.8'
+services:
+  flask-frontend:
+    build: 
+      context: . 
+      dockerfile: Dockerfile. flask
+    ports:
+      - "8080:8080"
+    environment:
+      - FAST_API_URL=http://fastapi: 8000/predict
+    depends_on:
+      - fastapi
 
-### Prediction Response
+  fastapi:
+    build: 
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "8000:8000"
+    environment:
+      - TF_SERVING_URL=http://tfserving:8501/v1/models/disease_models: predict
+    depends_on: 
+      - tfserving
 
-```json
-{
-  "class_name": "Early Bright",
-  "confidence": 95.5
-}
+  tfserving:
+    build: 
+      context: .
+      dockerfile: Dockerfile.tfserving
+    ports:
+      - "8501:8501"
 ```
+
+```bash
+docker-compose up --build
+```
+
+---
+
+## ☁️ Railway Deployment
+
+This project is deployed on [Railway](https://railway.app) with three services:
+
+### Environment Variables
+
+| Service | Variable | Value |
+|---------|----------|-------|
+| flask-frontend | `FAST_API_URL` | `http://<fastapi-service>. railway.internal: 8000/predict` |
+| fastapi | `TF_SERVING_URL` | `http://<tfserving-service>.railway. internal:8501/v1/models/disease_models:predict` |
+
+### Deployment Steps
+
+1. Create a new project on Railway
+2. Add three services from the same GitHub repo
+3. Configure each service: 
+   - **flask-frontend**: Set Dockerfile to `Dockerfile.flask`
+   - **fastapi**: Set Dockerfile to `Dockerfile.api`
+   - **tfserving**: Set Dockerfile to `Dockerfile.tfserving`
+4. Add environment variables (use Railway's private networking)
+5. Generate a public domain for flask-frontend
+
+---
+
+## 📁 Project Structure
+
+```
+potato-disease-prediction/
+├── 📂 api/
+│   └── main.py              # FastAPI backend
+├── 📂 models/
+│   └── 1/                   # TensorFlow SavedModel
+│       ├── saved_model.pb
+│       └── variables/
+├── 📂 static/
+│   ├── css/
+│   │   └── style.css        # Stylesheet
+│   ├── js/
+│   │   └── script.js        # JavaScript
+│   └── uploads/             # Uploaded images
+├── 📂 templates/
+│   ├── index.html           # Home page
+│   └── result.html          # Result page
+├── app.py                   # Flask application
+├── Dockerfile.flask         # Flask container
+├── Dockerfile.api           # FastAPI container
+├── Dockerfile.tfserving     # TF Serving container
+├── pyproject.toml           # Python dependencies
+├── uv.lock                  # Lock file
+└── README.md
+```
+
+---
 
 ## 🧠 Model Information
 
-The model is trained on the **PlantVillage** dataset and can classify potato leaves into three categories:
+| Property | Value |
+|----------|-------|
+| **Model Type** | Convolutional Neural Network (CNN) |
+| **Framework** | TensorFlow/Keras |
+| **Input Size** | Variable (RGB images) |
+| **Classes** | 3 (Early Blight, Late Blight, Healthy) |
+| **Serving** | TensorFlow Serving (REST API) |
+
+### Disease Classes
 
 | Class | Description |
 |-------|-------------|
-| Early Blight | Fungal disease with dark spots and concentric rings |
-| Late Blight | Water-soaked lesions that turn brown |
-| Healthy | No disease symptoms |
+| 🟢 **Healthy** | No disease detected |
+| 🟡 **Early Blight** | Caused by *Alternaria solani* fungus |
+| 🔴 **Late Blight** | Caused by *Phytophthora infestans* |
+
+---
+
+## 🛠️ API Endpoints
+
+### FastAPI Backend
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/` | GET | API information |
+| `/ping` | GET | Health check |
+| `/predict` | POST | Predict disease from image |
+| `/docs` | GET | Swagger documentation |
+
+### Example Request
+
+```bash
+curl -X POST "http://localhost:8000/predict" \
+  -H "Content-Type: multipart/form-data" \
+  -F "file=@potato_leaf.jpg"
+```
+
+### Example Response
+
+```json
+{
+  "class_name": "Early Blight",
+  "confidence": 95.67
+}
+```
+
+---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request. 
+Contributions are welcome!  Please feel free to submit a Pull Request.
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
@@ -157,10 +259,38 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
+---
 
-This project is open source and available under the [MIT License](LICENSE).
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-<p align="center">Made with ❤️ by <a href="https://github.com/rahulkate173">rahulkate173</a></p>
+## 👨‍💻 Author
+
+**Rahul Kate**
+
+- GitHub: [@rahulkate173](https://github.com/rahulkate173)
+
+---
+
+## 🙏 Acknowledgments
+
+- [TensorFlow](https://www.tensorflow.org/) for the ML framework
+- [FastAPI](https://fastapi.tiangolo.com/) for the API framework
+- [Flask](https://flask.palletsprojects.com/) for the web framework
+- [Railway](https://railway.app/) for hosting
+- [PlantVillage Dataset](https://www.kaggle.com/datasets/arjuntejaswi/plant-village) for training data
+
+---
+
+<p align="center">
+  Made with ❤️ by Rahul Kate
+</p>
+
+<p align="center">
+  <a href="https://flask-frontend-production-cd56.up.railway.app/">
+    <img src="https://img.shields.io/badge/🥔_Try_Live_Demo-Click_Here-success?style=for-the-badge" alt="Live Demo">
+  </a>
+</p>
