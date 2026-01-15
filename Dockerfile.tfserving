@@ -1,4 +1,4 @@
-FROM tensorflow/serving: latest
+FROM tensorflow/serving:latest
 
 COPY models /models
 
