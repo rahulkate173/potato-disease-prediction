@@ -15,10 +15,10 @@ A deep learning-powered web application that detects diseases in potato leaves. 
 ## 📸 Screenshots
 
 ### Home Page
-![Home Page](https://via.placeholder.com/800x400? text=Upload+Potato+Leaf+Image)
+![Home Page](\images_readme\image_mainpage.png)
 
 ### Prediction Result
-![Result Page](https://via.placeholder.com/800x400?text=Disease+Prediction+Result)
+![Result Page](\images_readme\image_prediction.png)
 
 ---
 
