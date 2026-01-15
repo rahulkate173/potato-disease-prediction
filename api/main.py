@@ -11,7 +11,7 @@ app = FastAPI()
 # TF Serving URL - Use environment variable for production
 TF_SERVING_URL = os.environ.get(
     'TF_SERVING_URL', 
-    'http://localhost:8501/v1/models/disease_models: predict'
+    'http://localhost:8501/v1/models/disease_models:predict'
 )
 
 CLASS_NAMES = ['Early Bright', 'Late Bright', 'Healthy']
